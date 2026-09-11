@@ -24,15 +24,18 @@ def parse_daily(path: Path):
         h2 = re.match(r"^##\s+(.+)$", line)
         if h2:
             cur = {"date": date, "title": h2.group(1).strip(),
-                   "category": "", "summary": "", "blog": ""}
+                   "category": "", "summary": "", "blog": "", "concepts": []}
             entries.append(cur)
             continue
         if cur is None:
             continue
-        m = re.match(r"^-\s*(카테고리|요약|블로그)\s*:\s*(.*)$", line)
+        m = re.match(r"^-\s*(카테고리|요약|개념|블로그)\s*:\s*(.*)$", line)
         if m:
-            key = {"카테고리": "category", "요약": "summary", "블로그": "blog"}[m.group(1)]
-            cur[key] = m.group(2).strip()
+            if m.group(1) == "개념":
+                cur["concepts"] = [c.strip() for c in m.group(2).split(",") if c.strip()]
+            else:
+                key = {"카테고리": "category", "요약": "summary", "블로그": "blog"}[m.group(1)]
+                cur[key] = m.group(2).strip()
 
     valid = []
     for e in entries:
@@ -70,11 +73,17 @@ def main():
         rows = []
         for e in sorted(entries, key=lambda x: x["date"], reverse=True):
             blog = f"[글]({e['blog']})" if e["blog"] else ""
-            rows.append(f"| [{e['date']}](../../daily/{e['date']}.md) | {e['title']} | {blog} |")
+            concepts = []
+            for c in e["concepts"]:
+                if not (ROOT / "index" / f"{c}.md").exists():
+                    warnings.append(f"{e['date']} '{e['title']}': index/{c}.md 없음")
+                concepts.append(f"[{c}](../../index/{c}.md)")
+            rows.append(f"| [{e['date']}](../../daily/{e['date']}.md) | {e['title']} "
+                        f"| {', '.join(concepts)} | {blog} |")
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(
             f"# {topic}\n\n<!-- /sync가 생성한 파일 — 직접 편집 금지, daily/가 원본 -->\n\n"
-            "| 날짜 | 공부한 것 | 블로그 |\n|------|-----------|--------|\n"
+            "| 날짜 | 공부한 것 | 개념 | 블로그 |\n|------|-----------|------|--------|\n"
             + "\n".join(rows) + "\n",
             encoding="utf-8")
 
