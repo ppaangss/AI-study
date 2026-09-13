@@ -1,6 +1,6 @@
 # Redis Eviction 정책
 
-TTL이 "예약된 삭제"라면, eviction은 **"메모리가 한계에 닥쳤을 때의 강제 퇴거"**다. ([redis TTL과 키만료](<redis TTL과 키만료.md>)와 세트)
+TTL이 "예약된 삭제"라면, eviction은 **"메모리가 한계에 닥쳤을 때의 강제 퇴거"**다. ([redis_TTL과 키만료](<redis_TTL과 키만료.md>)와 세트)
 
 ## maxmemory
 

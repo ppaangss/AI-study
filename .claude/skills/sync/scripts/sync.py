@@ -76,21 +76,21 @@ def main():
             if close:
                 warnings.append(f"카테고리 '{cat}' — 기존 '{close[0]}'와 대소문자만 다름. 오타인지 확인")
         expected.add(out)
-        rows = []
-        for e in sorted(entries, key=lambda x: x["date"], reverse=True):
-            blog = f"[글]({e['blog']})" if e["blog"] else ""
-            concepts = []
+        # 표 대신 개념 목차만 — 날짜·제목·블로그는 daily/README가 담당
+        seen = set()
+        items = []
+        for e in sorted(entries, key=lambda x: x["date"]):
             for c in e["concepts"]:
+                if c in seen:
+                    continue
+                seen.add(c)
                 if not (ROOT / "index" / f"{c}.md").exists():
                     warnings.append(f"{e['date']} '{e['title']}': index/{c}.md 없음")
-                concepts.append(f"[{c}](<{rel}/index/{c}.md>)")
-            rows.append(f"| [{e['date']}](<{rel}/daily/{e['date']}.md>) | {e['title']} "
-                        f"| {', '.join(concepts)} | {blog} |")
+                items.append(f"- [{c}](<{rel}/index/{c}.md>)")
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(
             f"# {topic}\n\n<!-- /sync가 생성한 파일 — 직접 편집 금지, daily/가 원본 -->\n\n"
-            "| 날짜 | 공부한 것 | 개념 | 블로그 |\n|------|-----------|------|--------|\n"
-            + "\n".join(rows) + "\n",
+            + "\n".join(items) + "\n",
             encoding="utf-8")
 
     # 더 이상 참조되지 않는 파생 파일 정리

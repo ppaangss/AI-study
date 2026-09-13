@@ -1,6 +1,6 @@
 # Redis TTL과 키 만료
 
-주제: "RAM은 작다. 꽉 차기 전에 어떻게 비울 것인가?"의 첫 번째 답 — **TTL(예약 삭제)**. (두 번째 답은 [redis eviction 정책](<redis eviction 정책.md>))
+주제: "RAM은 작다. 꽉 차기 전에 어떻게 비울 것인가?"의 첫 번째 답 — **TTL(예약 삭제)**. (두 번째 답은 [redis_eviction 정책](<redis_eviction 정책.md>))
 
 ## TTL — 키에 수명을 붙이기
 

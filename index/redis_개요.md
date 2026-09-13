@@ -28,7 +28,7 @@ Redis = **RE**mote **DI**ctionary **S**erver. 이름 그대로 "네트워크 너
 
 RAM은 비싸고 작다. 그래서 Redis 설계에 두 가지 질문이 따라다닌다:
 
-1. **메모리가 꽉 차면?** → eviction 정책 ([redis eviction 정책](<redis eviction 정책.md>))
+1. **메모리가 꽉 차면?** → eviction 정책 ([redis_eviction 정책](<redis_eviction 정책.md>))
 2. **서버가 꺼지면 데이터는?** → RDB/AOF 영속성 (5장에서 공부 예정)
 
 "Redis는 빠르지만, 그 빠름은 '작고 휘발되는 메모리' 위에 서 있다."
