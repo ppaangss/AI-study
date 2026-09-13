@@ -13,9 +13,12 @@
 
 ## 주제별 인덱스
 
-(아직 없음)
+### redis
+
+- [redis](topics/redis.md) — 1회, 최근 2026-09-13
+
 ## 최근 공부
 
-(아직 없음)
+- 2026-09-13 — Redis 개요·자료구조·키 만료 (목차 1~3장) ([redis](topics/redis.md))
 
 <!-- SYNC:END -->
