@@ -17,8 +17,13 @@
 
 - [redis](topics/redis.md) — 1회, 최근 2026-09-13
 
+### 자료구조
+
+- [자료구조](topics/자료구조.md) — 1회, 최근 2026-09-13
+
 ## 최근 공부
 
 - 2026-09-13 — Redis 개요·자료구조·키 만료 (목차 1~3장) ([redis](topics/redis.md))
+- 2026-09-13 — Skip List (Redis Sorted Set의 내부 구조) ([자료구조](topics/자료구조.md))
 
 <!-- SYNC:END -->
